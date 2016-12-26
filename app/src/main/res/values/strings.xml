@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MeiChat</string>
-    <string name="title_user">个人中心</string>
+    <string name="title_user">我的</string>
 </resources>

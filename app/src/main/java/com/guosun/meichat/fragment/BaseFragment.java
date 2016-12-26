@@ -54,9 +54,8 @@ public abstract class BaseFragment extends SupportFragment {
         } else {
             tv_header_title.setVisibility(View.GONE);
         }
-        View view = LayoutInflater.from(getActivity())
-                .inflate(getRootLayoutId(), null);
-        mRootLayout.addView(view);
+        //这句话的意思就是将自定义的子布局加到mRootLayout上，true的意思表示添加上去
+        LayoutInflater.from(getActivity()).inflate(getRootLayoutId(), mRootLayout, true);
         initUI(mRootLayout);
         initData();
         return mLayout;

@@ -20,10 +20,13 @@ public class UserFragment extends BaseFragment{
 
     @Override
     protected boolean showHeader() {
-        return false;
+        return true;
     }
 
-
+    @Override
+    protected String getHeaderTitle() {
+        return _mActivity.getResources().getString(R.string.title_user);
+    }
 
     @Override
     protected int getRootLayoutId() {

@@ -3,28 +3,13 @@ package com.guosun.meichat;
 import android.os.Bundle;
 import android.view.View;
 
-import com.guosun.meichat.fragment.BaseFragment;
-import com.guosun.meichat.fragment.CollectFragment;
-import com.guosun.meichat.fragment.HomeFragment;
 import com.guosun.meichat.fragment.MainFragment;
-import com.guosun.meichat.fragment.RecommendFragment;
-import com.guosun.meichat.fragment.UserFragment;
 import com.guosun.meichat.ui.BaseActivity;
-import com.guosun.meichat.view.BottomBar;
 
-import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class MainActivity extends BaseActivity {
-    // 再点一次退出程序时间设置
-    private static final long WAIT_TIME = 2000L;
-    private long TOUCH_TIME = 0;
-    private BottomBar mBottomBar;
-    private BaseFragment mCurFragment;
-    private HomeFragment mHomeFragment;
-    private RecommendFragment mRecommendFragment;
-    private CollectFragment mCollectFragment;
-    private UserFragment mFragment04;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +30,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected boolean showHeader() {
         return false;
@@ -58,8 +42,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
-        // 设置横向(和安卓4.x动画相同)
-        return new DefaultHorizontalAnimator();
+        return new DefaultNoAnimator();
     }
 
 
