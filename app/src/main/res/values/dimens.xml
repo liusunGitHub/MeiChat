@@ -5,4 +5,6 @@
     <dimen name="bottombar_height">52dp</dimen>
     <dimen name="textSizeItemTitle">14sp</dimen>
     <dimen name="textSizeItemSubTitle">12sp</dimen>
+    <dimen name="padding_top">0dp</dimen>
+
 </resources>

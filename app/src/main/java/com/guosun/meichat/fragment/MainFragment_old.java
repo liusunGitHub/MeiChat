@@ -107,7 +107,7 @@ public class MainFragment_old extends BackHandFragment implements OnBackToFirstL
     private void checkFragment(BaseFragment fragment) {
         //第一次加载片段
         if (mCurFragment == null) {
-            getFragmentManager().beginTransaction().replace(R.id.ll_main_container, fragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.ll_main_container, fragment).commitAllowingStateLoss();
             mCurFragment = fragment;
             return;
         }
@@ -118,10 +118,10 @@ public class MainFragment_old extends BackHandFragment implements OnBackToFirstL
         } else {
             if (fragment.isAdded())
                 getFragmentManager().beginTransaction()
-                        .hide(mCurFragment).show(fragment).commit();
+                        .hide(mCurFragment).show(fragment).commitAllowingStateLoss();
             else
                 getFragmentManager().beginTransaction()
-                        .hide(mCurFragment).add(R.id.ll_main_container, fragment).commit();
+                        .hide(mCurFragment).add(R.id.ll_main_container, fragment).commitAllowingStateLoss();
             mCurFragment = fragment;
         }
     }

@@ -98,7 +98,7 @@ public class Fragmentation {
             bundle.putBoolean(FRAGMENTATION_ARG_IS_ROOT, true);
         }
 
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     /**
@@ -176,7 +176,7 @@ public class Fragmentation {
         }
         Bundle bundle = to.getArguments();
         bundle.putBoolean(FRAGMENTATION_ARG_IS_ROOT, true);
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     /**
@@ -192,7 +192,7 @@ public class Fragmentation {
         fragmentManager.beginTransaction()
                 .show(showFragment)
                 .hide(hideFragment)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     void start(FragmentManager fragmentManager, SupportFragment from, SupportFragment to, View sharedElement, String name) {
@@ -217,14 +217,14 @@ public class Fragmentation {
         }
 
         ft.addToBackStack(toName);
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     void startWithPop(FragmentManager fragmentManager, SupportFragment from, SupportFragment to) {
         SupportFragment preFragment = getPreFragment(from);
         handlePopAnim(preFragment, from, to);
 
-        fragmentManager.beginTransaction().remove(from).commit();
+        fragmentManager.beginTransaction().remove(from).commitAllowingStateLoss();
         handleBack(fragmentManager, true);
 
         String toName = to.getClass().getName();
@@ -236,7 +236,7 @@ public class Fragmentation {
         if (preFragment != null) {
             ft.hide(preFragment);
         }
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     /**

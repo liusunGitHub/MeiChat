@@ -19,13 +19,9 @@ public class HomeFragment extends BaseFragment{
 
     @Override
     protected boolean showHeader() {
-        return true;
+        return false;
     }
 
-    @Override
-    protected String getHeaderTitle() {
-        return "首页";
-    }
 
     @Override
     protected int getRootLayoutId() {

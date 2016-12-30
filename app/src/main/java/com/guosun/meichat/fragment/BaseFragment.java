@@ -20,6 +20,7 @@ public abstract class BaseFragment extends SupportFragment {
     private View mLayout;
     private RelativeLayout mRootLayout;
     private TextView tv_header_title;
+    private RelativeLayout titleLayout;
 
     /**
      * 所有继承BackHandledFragment的子类都将在这个方法中实现物理Back键按下后的逻辑
@@ -43,16 +44,17 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (mLayout == null)
-            mLayout = inflater.inflate(R.layout.fragment_base, container, false);
+            mLayout = inflater.inflate(R.layout.layout_base, container, false);
 
         application = MCApplication.getInstance();
         mRootLayout = (RelativeLayout) mLayout.findViewById(R.id.mRootLayout);
+        titleLayout = (RelativeLayout) mLayout.findViewById(R.id.titleLayout);
         tv_header_title = (TextView) mLayout.findViewById(R.id.tv_header_title);
         tv_header_title.setText(getHeaderTitle());
         if (showHeader()) {
-            tv_header_title.setVisibility(View.VISIBLE);
+            titleLayout.setVisibility(View.VISIBLE);
         } else {
-            tv_header_title.setVisibility(View.GONE);
+            titleLayout.setVisibility(View.GONE);
         }
         //这句话的意思就是将自定义的子布局加到mRootLayout上，true的意思表示添加上去
         LayoutInflater.from(getActivity()).inflate(getRootLayoutId(), mRootLayout, true);

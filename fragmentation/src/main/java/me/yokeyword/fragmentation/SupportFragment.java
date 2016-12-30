@@ -109,7 +109,7 @@ public class SupportFragment extends Fragment implements ISupportFragment {
             } else {
                 ft.show(this);
             }
-            ft.commit();
+            ft.commitAllowingStateLoss();
         }
     }
 

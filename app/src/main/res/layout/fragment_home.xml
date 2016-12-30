@@ -2,16 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2">
-
+    android:background="@color/colorPrimaryDark"
+    android:paddingTop="@dimen/padding_top">
 
     <TextView
+        android:id="@+id/title_tv"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:padding="10dp"
+        android:background="@color/colorPrimary"
         android:text="Hello Word 妹妹"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_tv"
+        android:background="@color/contentBgColor"></RelativeLayout>
 </RelativeLayout>
