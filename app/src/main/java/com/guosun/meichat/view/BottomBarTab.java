@@ -84,9 +84,9 @@ public class BottomBarTab extends FrameLayout {
 
     public void setTabPosition(int position) {
         mTabPosition = position;
-//        if (position == 0) {
-//            setSelected(true);
-//        }
+        if (position == 0) {
+            setSelected(true);
+        }
     }
 
     public int getTabPosition() {

@@ -3,6 +3,7 @@ package com.guosun.meichat.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.guosun.meichat.MCApplication;
 import com.guosun.meichat.R;
+import com.guosun.meichat.view.ToolbarHelper;
 
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -19,8 +21,8 @@ public abstract class BaseFragment extends SupportFragment {
     protected MCApplication application;
     private View mLayout;
     private RelativeLayout mRootLayout;
-    private TextView tv_header_title;
-    private RelativeLayout titleLayout;
+    private TextView toolbar_title;
+    private android.support.v7.widget.Toolbar toolbar;
 
     /**
      * 所有继承BackHandledFragment的子类都将在这个方法中实现物理Back键按下后的逻辑
@@ -48,14 +50,36 @@ public abstract class BaseFragment extends SupportFragment {
 
         application = MCApplication.getInstance();
         mRootLayout = (RelativeLayout) mLayout.findViewById(R.id.mRootLayout);
-        titleLayout = (RelativeLayout) mLayout.findViewById(R.id.titleLayout);
-        tv_header_title = (TextView) mLayout.findViewById(R.id.tv_header_title);
-        tv_header_title.setText(getHeaderTitle());
+        toolbar = (android.support.v7.widget.Toolbar) mLayout.findViewById(R.id.toolbar);
+        toolbar_title = (TextView) mLayout.findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getHeaderTitle());
         if (showHeader()) {
-            titleLayout.setVisibility(View.VISIBLE);
+            toolbar.setVisibility(View.VISIBLE);
         } else {
-            titleLayout.setVisibility(View.GONE);
+            toolbar.setVisibility(View.GONE);
         }
+
+
+        if (toolbar != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+            // 默认不显示原生标题
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+            initToolbar(new ToolbarHelper(toolbar));
+        }
+
+
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        // 默认不显示原生标题
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+//添加菜单点击事件
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _mActivity.onBackPressed();
+            }
+        });
+        // 显示导航按钮
+        toolbar.setNavigationIcon(R.drawable.icon_back);
         //这句话的意思就是将自定义的子布局加到mRootLayout上，true的意思表示添加上去
         LayoutInflater.from(getActivity()).inflate(getRootLayoutId(), mRootLayout, true);
         initUI(mRootLayout);
@@ -64,6 +88,9 @@ public abstract class BaseFragment extends SupportFragment {
     }
 
 
+    protected void initToolbar(ToolbarHelper toolbarHelper) {
+
+    }
 
     protected String getHeaderTitle() {
         return getActivity().getResources().getString(R.string.app_name);
@@ -71,7 +98,7 @@ public abstract class BaseFragment extends SupportFragment {
 
 
     public void setHeaderTitle(String title) {
-        tv_header_title.setText(title);
+        toolbar_title.setText(title);
     }
 
     protected abstract boolean showHeader();

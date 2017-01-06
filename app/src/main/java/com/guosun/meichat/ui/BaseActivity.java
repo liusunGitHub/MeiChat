@@ -18,8 +18,8 @@ import me.yokeyword.fragmentation.SupportActivity;
 public abstract class BaseActivity extends SupportActivity {
     protected MCApplication application;
     private RelativeLayout mRootLayout;
-    private TextView tv_header_title;
-    private RelativeLayout titleLayout;
+    private TextView toolbar_title;
+    private android.support.v7.widget.Toolbar toolbar;
 
 
     @Override
@@ -29,13 +29,13 @@ public abstract class BaseActivity extends SupportActivity {
         setContentView(R.layout.layout_base);
         application = MCApplication.getInstance();
         mRootLayout = (RelativeLayout) findViewById(R.id.mRootLayout);
-        titleLayout = (RelativeLayout) findViewById(R.id.titleLayout);
-        tv_header_title = (TextView) findViewById(R.id.tv_header_title);
-        tv_header_title.setText(getHeaderTitle());
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
+        toolbar_title.setText(getHeaderTitle());
         if (showHeader()) {
-            titleLayout.setVisibility(View.VISIBLE);
+            toolbar.setVisibility(View.VISIBLE);
         } else {
-            titleLayout.setVisibility(View.GONE);
+            toolbar.setVisibility(View.GONE);
         }
         //这句话的意思就是将自定义的子布局加到mRootLayout上，true的意思表示添加上去
         if (getRootLayoutId() != 0) {
@@ -77,7 +77,7 @@ public abstract class BaseActivity extends SupportActivity {
     ;
 
     public void setHeaderTitle(String title) {
-        tv_header_title.setText(title);
+        toolbar_title.setText(title);
     }
 
 

@@ -2,19 +2,32 @@ package com.guosun.meichat.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 
 
+
+/**
+ * Created by YoKeyword on 16/6/3.
+ */
 public class BottomBar extends LinearLayout {
+    private static final int TRANSLATE_DURATION_MILLIS = 200;
+
+    private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
+    private boolean mVisible = true;
 
     private LinearLayout mTabLayout;
 
     private LayoutParams mTabParams;
     private int mCurrentPosition = 0;
-    private boolean defaultItemIsZero = false;//setCurrentItem(0)的时候，调用onTabSelected
     private OnTabSelectedListener mListener;
 
     public BottomBar(Context context) {
@@ -33,6 +46,10 @@ public class BottomBar extends LinearLayout {
     private void init(Context context, AttributeSet attrs) {
         setOrientation(VERTICAL);
 
+//        ImageView shadowView = new ImageView(context);
+//        shadowView.setBackgroundResource(R.drawable.actionbar_shadow_up);
+//        addView(shadowView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
         mTabLayout = new LinearLayout(context);
         mTabLayout.setBackgroundColor(Color.WHITE);
         mTabLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -50,14 +67,7 @@ public class BottomBar extends LinearLayout {
 
                 int pos = tab.getTabPosition();
                 if (mCurrentPosition == pos) {
-                    if (defaultItemIsZero) {
-                        mListener.onTabSelected(pos, -1);
-                        tab.setSelected(true);
-                        mCurrentPosition = pos;
-                        defaultItemIsZero = false;
-                    } else {
-                        mListener.onTabReselected(pos);
-                    }
+                    mListener.onTabReselected(pos);
                 } else {
                     mListener.onTabSelected(pos, mCurrentPosition);
                     tab.setSelected(true);
@@ -81,16 +91,9 @@ public class BottomBar extends LinearLayout {
         mTabLayout.post(new Runnable() {
             @Override
             public void run() {
-                if (position == 0) {
-                    defaultItemIsZero = true;
-                }
                 mTabLayout.getChildAt(position).performClick();
             }
         });
-    }
-
-    public int getCurrentItemPosition() {
-        return mCurrentPosition;
     }
 
     public interface OnTabSelectedListener {
@@ -101,4 +104,109 @@ public class BottomBar extends LinearLayout {
         void onTabReselected(int position);
     }
 
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        return new SavedState(superState, mCurrentPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        if (mCurrentPosition != ss.position) {
+            mTabLayout.getChildAt(mCurrentPosition).setSelected(false);
+            mTabLayout.getChildAt(ss.position).setSelected(true);
+        }
+        mCurrentPosition = ss.position;
+    }
+
+    public int getCurrentItemPosition() {
+        return mCurrentPosition;
+    }
+
+    static class SavedState extends BaseSavedState {
+        private int position;
+
+        public SavedState(Parcel source) {
+            super(source);
+            position = source.readInt();
+        }
+
+        public SavedState(Parcelable superState, int position) {
+            super(superState);
+            this.position = position;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(position);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
+
+
+    public void hide() {
+        hide(true);
+    }
+
+    public void show() {
+        show(true);
+    }
+
+    public void hide(boolean anim) {
+        toggle(false, anim, false);
+    }
+
+    public void show(boolean anim) {
+        toggle(true, anim, false);
+    }
+
+    public boolean isVisible() {
+        return mVisible;
+    }
+
+    private void toggle(final boolean visible, final boolean animate, boolean force) {
+        if (mVisible != visible || force) {
+            mVisible = visible;
+            int height = getHeight();
+            if (height == 0 && !force) {
+                ViewTreeObserver vto = getViewTreeObserver();
+                if (vto.isAlive()) {
+                    // view树完成测量并且分配空间而绘制过程还没有开始的时候播放动画。
+                    vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                        @Override
+                        public boolean onPreDraw() {
+                            ViewTreeObserver currentVto = getViewTreeObserver();
+                            if (currentVto.isAlive()) {
+                                currentVto.removeOnPreDrawListener(this);
+                            }
+                            toggle(visible, animate, true);
+                            return true;
+                        }
+                    });
+                    return;
+                }
+            }
+            int translationY = visible ? 0 : height;
+            if (animate) {
+                animate().setInterpolator(mInterpolator)
+                        .setDuration(TRANSLATE_DURATION_MILLIS)
+                        .translationY(translationY);
+            } else {
+                ViewCompat.setTranslationY(this, translationY);
+            }
+        }
+    }
 }
