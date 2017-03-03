@@ -6,14 +6,14 @@ import android.widget.RelativeLayout;
 
 import com.guosun.meichat.R;
 
-public class UserFragment extends BaseFragment implements View.OnClickListener {
+public class PersonalPageFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout user_ic_layout;
 
 
 
-    public static UserFragment newInstance()
+    public static PersonalPageFragment newInstance()
     {
-        UserFragment userFragment = new UserFragment();
+        PersonalPageFragment userFragment = new PersonalPageFragment();
         Bundle bundle = new Bundle();
         userFragment.setArguments(bundle);
         return userFragment;
@@ -22,7 +22,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected boolean showHeader() {
-        return true;
+        return false;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected int getRootLayoutId() {
-        return R.layout.fragment_user;
+        return R.layout.fragment_personal_page;
     }
 
     @Override
@@ -44,10 +44,10 @@ public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (v == user_ic_layout) {
-            PersonalPageFragment personalPageFragment = PersonalPageFragment.newInstance();
-            start(personalPageFragment);
-        }
+//        if (v == user_ic_layout) {
+//            TopMovieFragment topMovieFragment = TopMovieFragment.newInstance();
+//            start(topMovieFragment);
+//        }
     }
 
 }

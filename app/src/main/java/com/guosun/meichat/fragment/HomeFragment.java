@@ -3,7 +3,7 @@ package com.guosun.meichat.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.commonlib.log.ULog;
+import com.utilcommonlib.log.ULog;
 import com.guosun.meichat.R;
 
 public class HomeFragment extends BaseFragment{

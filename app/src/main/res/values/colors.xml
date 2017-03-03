@@ -11,4 +11,5 @@
     <color name="itemTitleColor">#29b6f6</color>
     <color name="itemSubTitleColor">#87000000</color>
     <color name="contentBgColor">#f2f2f2</color>
+    <color name="_90009900">#90009900</color>
 </resources>

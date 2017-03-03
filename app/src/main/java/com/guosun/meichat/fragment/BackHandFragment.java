@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.commonlib.utils.ToastUtils;
+import com.utilcommonlib.utils.ToastUtils;
 
 public abstract class BackHandFragment extends BaseFragment {
     // 再点一次退出程序时间设置

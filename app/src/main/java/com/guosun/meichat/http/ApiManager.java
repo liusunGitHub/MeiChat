@@ -1,7 +1,7 @@
 package com.guosun.meichat.http;
 
 
-import com.commonlib.log.ULog;
+import com.utilcommonlib.log.ULog;
 import com.guosun.meichat.config.Config;
 import com.guosun.meichat.model.HttpResult;
 import com.guosun.meichat.model.Subject;

@@ -19,18 +19,20 @@ package com.guosun.meichat;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.commonlib.log.ULog;
+import com.utilcommonlib.log.ULog;
 
 
 public class MCApplication extends Application {
 
     private final String PREFERENCES_NAME = "mei_chat_preferences";
     private static MCApplication instance;
+    private final boolean isShowLog = true;//显示log 开关
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+        ULog.init(isShowLog);
     }
 
     public static MCApplication getInstance() {

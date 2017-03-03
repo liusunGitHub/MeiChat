@@ -2,7 +2,7 @@ package com.guosun.meichat.subscribers;
 
 import android.content.Context;
 
-import com.commonlib.utils.ToastUtils;
+import com.utilcommonlib.utils.ToastUtils;
 import com.guosun.meichat.view.CustomProgressDialog;
 
 import java.net.ConnectException;

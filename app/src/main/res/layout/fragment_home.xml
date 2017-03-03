@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:padding="10dp"
-        android:background="@color/colorPrimary"
         android:text="Hello Word 妹妹"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
