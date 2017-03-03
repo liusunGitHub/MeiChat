@@ -1,1 +1,5 @@
-include ':app', ':commonlib', ':fragmentation'
+include ':app', ':fragmentation'
+include ':utilcommonlib'
+include ':imagepickerlib'
+project(':utilcommonlib').projectDir = new File('/Libs/utilcommonlib')
+project(':imagepickerlib').projectDir = new File('/Libs/imagepickerlib')

@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MeiChat.iml" filepath="$PROJECT_DIR$/MeiChat.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/commonlib/commonlib.iml" filepath="$PROJECT_DIR$/commonlib/commonlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/fragmentation/fragmentation.iml" filepath="$PROJECT_DIR$/fragmentation/fragmentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libs/imagepickerlib/imagepickerlib.iml" filepath="$PROJECT_DIR$/Libs/imagepickerlib/imagepickerlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Libs/utilcommonlib/utilcommonlib.iml" filepath="$PROJECT_DIR$/Libs/utilcommonlib/utilcommonlib.iml" />
     </modules>
   </component>
 </project>
